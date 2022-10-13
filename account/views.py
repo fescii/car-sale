@@ -114,17 +114,21 @@ def add_car(request):
 
 def car_search(request):
     search_form = SearchForm(request.GET)
+    location = None
+    query = None
     results = []
-    if search_form.is_valid():
-        model = search_form.cleaned_data.get('model')
-        location = search_form.cleaned_data.get('location')
+    if request.GET:
+        model  = request.GET['model']
+        location = request.GET['location']
         results = Car.objects.filter(model=model,location=location)
+        query = True
         return render(request,'car/search.html',
-                      {'search_form': search_form,
-                       'model': model,
+                        {'search_form': search_form,
+                       'query': query,
                        'results': results})
     return render(request,'car/search.html',
                       {'search_form': search_form,
+                       'query': query,
                        'results': results})
 
 

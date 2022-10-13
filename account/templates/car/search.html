@@ -2,7 +2,6 @@
 {% block title %}Search{% endblock %}
 {% block content %}
     {% if query %}
-    <h1>Posts containing "{{ model }}"</h1>
     <h3>
     {% with results.count as total_results %}
         Found {{ total_results }} result{{ total_results|pluralize }}
@@ -22,6 +21,10 @@
                     <div class="info-content">
                         <span class="title">Model </span>
                         <span class="text">{{car.model}}</span>
+                    </div>
+                    <div class="info-content">
+                        <span class="title">Location </span>
+                        <span class="text">{{car.location}}</span>
                     </div>
                     <div class="info-content">
                         <span class="title">Year </span>
