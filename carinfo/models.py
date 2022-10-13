@@ -8,6 +8,7 @@ class Car(models.Model):
     name = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250)
     model = models.CharField(max_length=250)
+    image = models.ImageField(upload_to='users/%Y/%m/%d/',blank=True)
     notes = models.TextField()
     year = models.IntegerField()
     price = models.IntegerField()
@@ -21,10 +22,3 @@ class Car(models.Model):
 
     def __str__(self):
         return self.name
-
-class Image(models.Model):
-    car = models.ForeignKey(Car,on_delete=models.CASCADE,related_name='images')
-    image = models.ImageField(upload_to='users/%Y/%m/%d/',blank=True)
-
-    def __str__(self):
-        return f'Image for {self.car}'

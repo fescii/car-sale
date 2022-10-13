@@ -2,11 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm,UserRegistrationForm,\
-    UserEditForm, ProfileEditForm, CarForm, ImageForm
+    UserEditForm, ProfileEditForm, CarForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile
-from carinfo.models import Car, Image
+from carinfo.models import Car
 from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
 
 
 # Create your views here.
@@ -90,12 +92,13 @@ def edit(request):
 
 @login_required
 def add_car(request):
-    car_form = CarForm(request.POST)
+    car_form = CarForm(request.POST,files=request.FILES)
     if request.method == 'POST':
         if car_form.is_valid():
             new_car = car_form.save(commit=False)
             new_car.seller = request.user
             new_car.save()
+            return HttpResponseRedirect(reverse('dashboard'))
         else:
             car_form = CarForm(request.POST)
             return render(request,

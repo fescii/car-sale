@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
-from carinfo.models import Car,Image
+from carinfo.models import Car
 
 
 class LoginForm(forms.Form):
@@ -35,9 +35,5 @@ class ProfileEditForm(forms.ModelForm):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ['name', 'model', 'year', 'price', 'location', 'notes']
+        fields = ['name', 'model', 'location', 'image', 'year', 'price', 'location', 'notes']
 
-class ImageForm(forms.ModelForm):
-    class Meta:
-        model = Image
-        fields = ['image',]

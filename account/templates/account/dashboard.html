@@ -3,10 +3,9 @@
 {% block content %}
 <h1>Dashboard</h1>
     {% for car in cars %}
-    <h2>
     <div class="car-container">
         <div class="image">
-            <img src="{{img_girl.jpg}}" alt="{{car.name}}" width="300" height="200">
+            <img src="media/{{car.image}}" alt="{{car.name}}" width="300" height="200">
         </div>
         <div class="content">
             <div class="car-info">
