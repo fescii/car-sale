@@ -2,9 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm,UserRegistrationForm,\
-    UserEditForm, ProfileEditForm
+    UserEditForm, ProfileEditForm, CarForm, ImageForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile
+from carinfo.models import Car, Image
 
 
 # Create your views here.
@@ -78,3 +79,25 @@ def edit(request):
                           'account/edit.html',
                           {'user_form': user_form,
                            'profile_form': profile_form})
+
+@login_required
+def create_car(request):
+    car_form = CarForm(request.POST)
+    if request.method == 'POST':
+        if car_form.is_valid():
+            new_car = car_form.save(commit=False)
+            new_car.seller = request.user
+            new_car.save()
+        else:
+            car_form = CarForm(request.POST)
+
+            return render(request,
+                          'account/add-car.html',
+                          {'car_form': car_form,
+                           'section': 'add'})
+    return render(request,
+                          'account/add-car.html',
+                          {'car_form': car_form,
+                           'section': 'add'})
+
+
