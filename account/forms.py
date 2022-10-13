@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from carinfo.models import Car
+from django.forms import ModelChoiceField
 
 
 class LoginForm(forms.Form):
@@ -37,3 +38,6 @@ class CarForm(forms.ModelForm):
         model = Car
         fields = ['name', 'model', 'location', 'image', 'year', 'price', 'location', 'notes']
 
+class SearchForm(forms.Form):
+    model = forms.ModelChoiceField(Car.objects.values_list('model', flat=True).distinct(), initial=0)
+    location = forms.ModelChoiceField(queryset=Car.objects.values_list('location', flat=True).distinct(), initial=0)

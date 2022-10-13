@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    {% if query %}
+    <h1>Posts containing "{{ model }}"</h1>
+    <h3>
+    {% with results.count as total_results %}
+        Found {{ total_results }} result{{ total_results|pluralize }}
+    {% endwith %}
+    </h3>
+    {% for car in results %}
+        <div class="car-container">
+            <div class="image">
+                <img src="media/{{car.image}}" alt="{{car.name}}" width="300" height="200">
+            </div>
+            <div class="content">
+                <div class="car-info">
+                    <div class="info-content">
+                        <span class="title">Name </span>
+                        <span class="text">{{car.name}}</span>
+                    </div>
+                    <div class="info-content">
+                        <span class="title">Model </span>
+                        <span class="text">{{car.model}}</span>
+                    </div>
+                    <div class="info-content">
+                        <span class="title">Year </span>
+                        <span class="text">{{car.year}}</span>
+                    </div>
+                    <div class="info-content">
+                        <span class="title">Price </span>
+                        <span class="text">{{car.price}}</span>
+                    </div>
+                    <div class="info-content">
+                        <span class="title">Description </span>
+                    <span>{{car.notes}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="info-seller">
+                <span class="title">Posted by: </span>
+                <span class="text">{{car.seller.first_name}}</span>
+            </div>
+        </div>
+    {% empty %}
+        <p>No result found!</p>
+    {% endfor %}
+    <p><a href="{% url "car_search" %}">Search again</a></p>
+    {% else %}
+    <h1>Search for posts</h1>
+    <form method="get">
+    {{ search_form.as_p }}
+    <input type="submit" value="Search">
+    </form>
+    {% endif %}
+{% endblock %}

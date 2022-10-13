@@ -2,7 +2,7 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
 <h1>Dashboard</h1>
-    {% for car in cars %}
+   {% for car in cars %}
     <div class="car-container">
         <div class="image">
             <img src="media/{{car.image}}" alt="{{car.name}}" width="300" height="200">
@@ -30,6 +30,10 @@
                    <span>{{car.notes}}</span>
                 </div>
             </div>
+        </div>
+        <div class="info-seller">
+            <span class="title">Posted by: </span>
+            <span class="text">{{car.seller.first_name}}</span>
         </div>
     </div>
     {% endfor %}

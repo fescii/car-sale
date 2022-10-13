@@ -1,8 +1,9 @@
+from statistics import mode
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm,UserRegistrationForm,\
-    UserEditForm, ProfileEditForm, CarForm
+    UserEditForm, ProfileEditForm, CarForm,SearchForm
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from carinfo.models import Car
@@ -72,14 +73,14 @@ def register(request):
 @login_required
 def edit(request):
     user_form = UserEditForm(instance=request.user)
-    profile_form = ProfileEditForm(instance=request.user.profile)
+    profile_form = ProfileEditForm(instance=request.user.profile,files=request.FILES)
     if request.method == 'POST':
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
         else:
             user_form = UserEditForm(instance=request.user)
-            profile_form = ProfileEditForm(instance=request.user.profile)
+            profile_form = ProfileEditForm(instance=request.user.profile,files=request.FILES)
 
             return render(request,
                           'account/edit.html',
@@ -109,5 +110,21 @@ def add_car(request):
                           'car/add-car.html',
                           {'car_form': car_form,
                            'section': 'add'})
+
+
+def car_search(request):
+    search_form = SearchForm(request.GET)
+    results = []
+    if search_form.is_valid():
+        model = search_form.cleaned_data.get('model')
+        location = search_form.cleaned_data.get('location')
+        results = Car.objects.filter(model=model,location=location)
+        return render(request,'car/search.html',
+                      {'search_form': search_form,
+                       'model': model,
+                       'results': results})
+    return render(request,'car/search.html',
+                      {'search_form': search_form,
+                       'results': results})
 
 
