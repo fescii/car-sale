@@ -7,24 +7,43 @@
   </head>
   <body>
     <div id="header">
-      <span class="logo">Bookmarks</span>
-      {% if request.user.is_authenticated %}
+      <h2 class="logo">Online Car Sale</h2>
         <ul class="menu">
             <li {% if section == "dashboard" %}class="selected"{% endif %}>
-                <a href="{% url "dashboard" %}">My dashboard</a>
+                <a href="{% url "dashboard" %}">Home</a>
             </li>
-            <li {% if section == "images" %}class="selected"{% endif %}>
-                <a href="#">Images</a>
+            {% if request.user.is_authenticated %}
+              <li {% if section == "search" %}class="selected"{% endif %}>
+                <a href="#">Search</a>
+              </li>
+              {% if request.user.profile.user_type == "seller" %}
+                <li {% if section == "sellers" %}class="selected"{% endif %}>
+                    <a href="#">Add Car</a>
+                </li>
+              {% endif %}
+              <li {% if section == "edit" %}class="selected"{% endif %}>
+                <a href="{% url "edit" %}">Edit profile</a>
+              </li>
+              <li {% if section == "search" %}class="selected"{% endif %}>
+                <a href="{% url "logout" %}">Logout</a>
+              </li>
+          {% else %}
+            <li {% if section == "cars" %}class="selected"{% endif %}>
+              <a href="#">Cars</a>
             </li>
-            <li {% if section == "people" %}class="selected"{% endif %}>
-                <a href="#">People</a>
+            <li {% if section == "search" %}class="selected"{% endif %}>
+              <a href="#">Search</a>
             </li>
+            <li {% if section == "search" %}class="selected"{% endif %}>
+              <a href="{% url "login" %}">Log-in</a>
+            </li>
+          {% endif %}
         </ul>
-        {% endif %}
         <span class="user">
             {% if request.user.is_authenticated %}
             Hello {{ request.user.first_name|default:request.user.username }},
             <a href="{% url "logout" %}">Logout</a>
+            <a href="{% url "edit" %}">Edit profile</a>
             {% else %}
             <a href="{% url "login" %}">Log-in</a>
             {% endif %}
