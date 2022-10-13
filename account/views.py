@@ -6,13 +6,21 @@ from .forms import LoginForm,UserRegistrationForm,\
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from carinfo.models import Car, Image
+from django.core.paginator import Paginator
 
 
 # Create your views here.
 def dashboard(request):
+    car_list = Car.objects.all()
+    # Pagination with 3 posts per page
+    paginator = Paginator(car_list, 5)
+    page_number = request.GET.get('page', 1)
+    cars = paginator.page(page_number)
     return render(request,
                   'account/dashboard.html',
-                  {'section': 'dashboard'})
+                  {'section': 'dashboard',
+                  'cars': cars})
+
 
 def user_login(request):
     form = LoginForm(request.POST)

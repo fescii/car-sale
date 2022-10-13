@@ -2,8 +2,37 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
 <h1>Dashboard</h1>
-<p>Welcome to your dashboard.
-    You can <a href="{% url "edit" %}">edit your
-    profile</a>
-</p>
+    {% for car in cars %}
+    <h2>
+    <div class="car-container">
+        <div class="image">
+            <img src="{{img_girl.jpg}}" alt="{{car.name}}" width="300" height="200">
+        </div>
+        <div class="content">
+            <div class="car-info">
+                <div class="info-content">
+                    <span class="title">Name </span>
+                    <span class="text">{{car.name}}</span>
+                </div>
+                <div class="info-content">
+                    <span class="title">Model </span>
+                    <span class="text">{{car.model}}</span>
+                </div>
+                <div class="info-content">
+                    <span class="title">Year </span>
+                    <span class="text">{{car.year}}</span>
+                </div>
+                <div class="info-content">
+                    <span class="title">Price </span>
+                    <span class="text">{{car.price}}</span>
+                </div>
+                <div class="info-content">
+                    <span class="title">Description </span>
+                   <span>{{car.notes}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% include "pagination.html" with page=cars %}
 {% endblock %}
