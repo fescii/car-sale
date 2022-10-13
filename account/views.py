@@ -81,7 +81,7 @@ def edit(request):
                            'profile_form': profile_form})
 
 @login_required
-def create_car(request):
+def add_car(request):
     car_form = CarForm(request.POST)
     if request.method == 'POST':
         if car_form.is_valid():
@@ -90,13 +90,12 @@ def create_car(request):
             new_car.save()
         else:
             car_form = CarForm(request.POST)
-
             return render(request,
-                          'account/add-car.html',
+                          'car/add-car.html',
                           {'car_form': car_form,
                            'section': 'add'})
     return render(request,
-                          'account/add-car.html',
+                          'car/add-car.html',
                           {'car_form': car_form,
                            'section': 'add'})
 

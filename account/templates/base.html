@@ -18,7 +18,7 @@
               </li>
               {% if request.user.profile.user_type == "seller" %}
                 <li {% if section == "add" %}class="selected"{% endif %}>
-                    <a href="#">Add Car</a>
+                    <a href="{% url "add_car" %}">Add Car</a>
                 </li>
               {% endif %}
               <li {% if section == "edit" %}class="selected"{% endif %}>

@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block title %}Log-in{% endblock %}
+{% block content%}
+    <p>Please, Add car information</p>
+    <form method="post">
+    {{ car_form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Save"/></p>
+    </form>
+{% endblock %}
