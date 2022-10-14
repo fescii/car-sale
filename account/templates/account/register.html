@@ -2,10 +2,12 @@
 {% block title %}Create an account{% endblock %}
 {% block content %}
 <h1>Create an account</h1>
-<p>Please, sign up using the following form:</p>
 <form method="post">
-{{ user_form.as_p }}
+{% for field in user_form %}
+        {{field.label}}
+        {{field}}
+    {% endfor %}
 {% csrf_token %}
-<p><input type="submit" value="Create my account"></p>
+<input type="submit" value="Create my account">
 </form>
 {% endblock %}

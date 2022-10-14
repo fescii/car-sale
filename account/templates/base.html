@@ -14,7 +14,7 @@
             </li>
             {% if request.user.is_authenticated %}
               <li {% if section == "search" %}class="selected"{% endif %}>
-                <a href="#">Search</a>
+                <a href="{% url "car_search" %}">Search Cars</a>
               </li>
               {% if request.user.profile.user_type == "seller" %}
                 <li {% if section == "add" %}class="selected"{% endif %}>
@@ -39,15 +39,15 @@
             </li>
           {% endif %}
         </ul>
-        <span class="user">
-            {% if request.user.is_authenticated %}
-            Hello {{ request.user.first_name|default:request.user.username }},
-            <a href="{% url "logout" %}">Logout</a>
+        <div class="user">
+          {% if request.user.is_authenticated %}
             <a href="{% url "edit" %}">Edit profile</a>
+            <a class="logout" href="{% url "logout" %}">Logout</a>
             {% else %}
             <a href="{% url "login" %}">Log-in</a>
+            <a href="{% url "register" %}">Register</a>
             {% endif %}
-        </span>
+        </div>
     </div>
     <div id="content">{% block content %} {% endblock %}</div>
   </body>

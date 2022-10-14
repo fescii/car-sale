@@ -16,7 +16,7 @@ from django.urls import reverse
 def dashboard(request):
     car_list = Car.objects.all()
     # Pagination with 3 posts per page
-    paginator = Paginator(car_list, 5)
+    paginator = Paginator(car_list, 6)
     page_number = request.GET.get('page', 1)
     cars = paginator.page(page_number)
     return render(request,
@@ -129,6 +129,7 @@ def car_search(request):
     return render(request,'car/search.html',
                       {'search_form': search_form,
                        'query': query,
+                       'section': 'search',
                        'results': results})
 
 

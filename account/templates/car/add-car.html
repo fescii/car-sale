@@ -1,9 +1,12 @@
 {% extends "base.html" %} {% block title %}Log-in{% endblock %}
 {% block content%}
-    <p>Please, Add car information</p>
+    <h1>Add Car</h1>
     <form method="post" enctype="multipart/form-data">
-    {{ car_form.as_p }}
+        {% for field in car_form %}
+        {{field.label}}
+        {{field}}
+    {% endfor %}
     {% csrf_token %}
-    <p><input type="submit" value="Save"/></p>
+    <input type="submit" value="Save"/>
     </form>
 {% endblock %}

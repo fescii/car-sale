@@ -2,6 +2,7 @@
 {% block title %}Dashboard{% endblock %}
 {% block content %}
 <h1>Dashboard</h1>
+<div class="cars">
    {% for car in cars %}
     <div class="car-container">
         <div class="image">
@@ -31,7 +32,7 @@
                 </div>
                 <div class="info-content">
                     <span class="title">Description </span>
-                   <span>{{car.notes}}</span>
+                   <span class="text">{{car.notes}}</span>
                 </div>
             </div>
         </div>
@@ -42,4 +43,5 @@
     </div>
     {% endfor %}
     {% include "pagination.html" with page=cars %}
-{% endblock %}
+</div>
+    {% endblock %}
