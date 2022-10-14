@@ -4,9 +4,9 @@
 <h1>Create an account</h1>
 <form method="post">
 {% for field in user_form %}
-        {{field.label}}
-        {{field}}
-    {% endfor %}
+    {{field.label}}
+    {{field}}
+{% endfor %}
 {% csrf_token %}
 <input type="submit" value="Create my account">
 </form>
